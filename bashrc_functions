@@ -269,3 +269,6 @@ function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
 # Extract a function code from a script.
 function extract_function(){ sed -n "/^function $1\(\)/,/^}/p" $2; }
+
+# Find all function names from a script.
+function find_functions() { awk '/^function/ {$0=$2; sub(/\(\)/, "", $0); print $1}' $1; }
