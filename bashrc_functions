@@ -44,34 +44,13 @@ function _exit()
 }
 trap _exit EXIT
 
-#-------------------------------------------------------------
-# Aliases
-#-------------------------------------------------------------
-
-alias which='type -a'
-alias ..='cd ..'
-alias mkdir='mkdir -p'
-alias ll="ls -lv --group-directories-first"
-alias la='ll -A'           #  Show hidden files.
-alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
-
-# Pretty-print of some PATH variables:
-alias path='echo -e ${PATH//:/\\n}'
-
-# Spelling typos - highly personnal and keyboard-dependent
-alias xs='cd'
-alias vf='cd'
-alias moer='more'
-alias moew='more'
-alias kk='ll'
-alias sl='ls'
 
 #-------------------------------------------------------------
 # Process/system related functions:
 #-------------------------------------------------------------
 
 # Filter a process in ps without grep.
-pps () { ps -ef | grep "$@" | grep -v 'grep'; }
+function pps () { ps -ef | grep "$@" | grep -v 'grep'; }
 
 # Kill application and show a funny message.
 # fuck you <app>
@@ -183,7 +162,7 @@ function corename()
 }
 
 # Flip table
-fliptable() { echo "（╯°□°）╯︵ ┻━┻"; }
+function fliptable() { echo "（╯°□°）╯︵ ┻━┻"; }
 
 #-------------------------------------------------------------
 # Aliases: 
@@ -192,10 +171,18 @@ fliptable() { echo "（╯°□°）╯︵ ┻━┻"; }
 # To find candidates that might be good to create aliases for, it might be a good idea to search your history for your most commonly used commands. 
 # history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
 
-#Typos
+#Spelling Typos
 alias sl="ls --color"
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+
 #Listing
-alias ll="ls -lhA --color"
+alias ll="ls -lv --group-directories-first --color"
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
 #Change to your parent directory.
 alias cd..="cd .."
 alias ..="cd .."
@@ -205,6 +192,12 @@ alias fhere="find . -name "
 alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 #This one will list our disk usage in human-readable units including filesystem type, and print a total at the bottom.
 alias df="df -Tha --total"
+
+alias which='type -a'
+alias mkdir='mkdir -p'
+
+# Pretty-print of some PATH variables:
+alias path='echo -e ${PATH//:/\\n}'
 
 
 #-------------------------------------------------------------
@@ -232,14 +225,14 @@ function swap()
 }
 
 # Create a directory and then immediately move into that directory.
-mkcd () {
+function mkcd () {
     [ $# -ne 1 ] && echo 'mkcd: 1 argument needed' && return 1
     mkdir -p $1
     cd $1
 }
 
 # This function takes the first argument and calls the appropriate utility program based on the file extension used.
-extract () {
+function extract () {
     if [ -z "$1" ]; then
         # display usage if no parameters given
         echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
@@ -276,7 +269,6 @@ function ff() { path=$1; shift; find $path -type f -iname '*'"$*"'*' -ls ; }
 
 # Find a file in path $1 with pattern $2 in name and execute $3 on it:
 function fe() { find $1 -type f -iname '*'"${2:-}"'*' -exec ${3:-file} {} \;  ; }
-
 
 
 # Creates an archive (*.tar.gz) from given directory.
