@@ -44,6 +44,27 @@ function _exit()
 }
 trap _exit EXIT
 
+#-------------------------------------------------------------
+# Aliases
+#-------------------------------------------------------------
+
+alias which='type -a'
+alias ..='cd ..'
+alias mkdir='mkdir -p'
+alias ll="ls -lv --group-directories-first"
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
+# Pretty-print of some PATH variables:
+alias path='echo -e ${PATH//:/\\n}'
+
+# Spelling typos - highly personnal and keyboard-dependent
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+alias sl='ls'
 
 #-------------------------------------------------------------
 # Process/system related functions:
