@@ -1,0 +1,8 @@
+function cmdhist {
+    declare CMD 
+    IP=$(who -m | awk -F"(" '{print $2}' | sed 's/.$//g')
+#    CMD=$(fc -ln -0)
+    CMD=$BASH_COMMAND
+    logger -p local1.notice "$USER [$$], IP: $IP, CMD: $CMD"
+}
+trap cmdhist DEBUG
